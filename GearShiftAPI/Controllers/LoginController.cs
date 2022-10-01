@@ -3,6 +3,7 @@ using GearShiftAPI.JWTFeatures;
 using GearShiftAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Runtime.CompilerServices;
 
@@ -26,6 +27,25 @@ namespace GearShiftAPI.Controllers
         {
             var users = _context.userModel.AsQueryable();
             return Ok(users);
+        }
+
+        [HttpGet("user/{id}")]
+        public IActionResult GetUserProfile(int id)
+        {
+            var user = _context.userModel.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            var userProfile = new
+            {
+                Email = user.Email,
+                Firstname = user.Firstname,
+                Lastname = user.Lastname,
+                Streeet_address = user.Street_address,
+                City = user.City,
+                State = user.State,
+                Zipcode = user.Zipcode,
+                Phone = user.Phone
+            };
+
+            return Ok(userProfile);
         }
 
         [HttpPost("signup")]
