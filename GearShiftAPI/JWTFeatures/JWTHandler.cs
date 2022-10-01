@@ -30,7 +30,8 @@ namespace GearShiftAPI.JWTFeatures
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Email)
+                new Claim("Id", user.Id.ToString()),
+                new Claim("Name", user.Email)
             };
 
             return claims;
