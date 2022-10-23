@@ -10,10 +10,13 @@ namespace GearShiftAPI.Data
 
         }
         public DbSet<UserModel> userModel { get; set; }
+        public DbSet<RentalModel> rentalModel { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserModel>().ToTable("user");
+            modelBuilder.Entity<RentalModel>().ToTable("rentals");
         }
 
     }
