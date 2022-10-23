@@ -32,18 +32,11 @@ namespace GearShiftAPI.Controllers
         [HttpGet("user/{id}")]
         public IActionResult GetUserProfile(int id)
         {
-            var user = _context.userModel.AsNoTracking().FirstOrDefault(x => x.Id == id);
-            var userProfile = new
+            var userProfile = _context.userModel.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            if(userProfile == null)
             {
-                Email = user.Email,
-                Firstname = user.Firstname,
-                Lastname = user.Lastname,
-                Streeet_address = user.Street_address,
-                City = user.City,
-                State = user.State,
-                Zipcode = user.Zipcode,
-                Phone = user.Phone
-            };
+                return BadRequest();
+            }
 
             return Ok(userProfile);
         }
